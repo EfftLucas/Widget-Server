@@ -8,7 +8,7 @@ export class SubmitFeedbackTrelloUseCase {
   async execute(request: SendTrelloCard) {
     const { idList, name, desc, pos, due, dueComplete, idMembers, idLabels, urlSource, fileSource, idCardSource, keepFromSource } = request;
 
-    if (!idList) {
+    if (idList.length === 0 ) {
       throw new Error("idList is required")
     }
 
