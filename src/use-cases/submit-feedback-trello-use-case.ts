@@ -11,7 +11,6 @@ export class SubmitFeedbackTrelloUseCase {
     if (!idList) {
       throw new Error("idList is required")
     }
-    console.log('Cheguei aqui');
 
 
     await this.trelloAdapter.sendCard({

@@ -12,8 +12,9 @@ export class TrelloNodeCardAdapter implements TrelloAdapter {
 
     try {
       const response = await Trello.card.create(data);
-      console.log(response)
+
     } catch (err) {
+      
       console.log(err);
     }
   }
