@@ -1,4 +1,8 @@
 export interface SendTrelloCard {
+  type: string;
+  comment: string;
+  screenshot?: string;
+  company: string;
   name: string;
   desc: string;
   pos?: string;

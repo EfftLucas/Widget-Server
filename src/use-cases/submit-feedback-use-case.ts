@@ -5,6 +5,7 @@ interface SubmitFeedbackUseCaseRequest {
   type: string;
   comment: string;
   screenshot?: string;
+  company: string;
 }
 
 export class SubmitFeedbackUseCase {
@@ -14,7 +15,7 @@ export class SubmitFeedbackUseCase {
     ) {}
 
   async execute(request: SubmitFeedbackUseCaseRequest) {
-    const { type, comment, screenshot } = request;
+    const { type, comment, screenshot, company } = request;
 
     if(!type) {
       throw new Error("Type is required")
@@ -31,6 +32,7 @@ export class SubmitFeedbackUseCase {
       type,
       comment,
       screenshot,
+      company,
     });
 
     await this.mailAdapter.sendMail({

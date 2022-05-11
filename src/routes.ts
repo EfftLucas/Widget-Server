@@ -9,7 +9,7 @@ import { TrelloNodeCardAdapter } from './adapters/trello/trello-card-adapter';
 export const routes = express.Router()
 
 routes.post("/feedbacks", async (req, res) => {
-  const { type, comment, screenshot } = req.body;
+  const { type, comment, screenshot, company } = req.body;
 
   const prismaFeedbackRepository = new PrismaFeedbackRepository()
   const nodemailerMailer = new NodemailerMailAdapter()
@@ -22,22 +22,30 @@ routes.post("/feedbacks", async (req, res) => {
   await submitFeedbackUseCase.execute({
     type, 
     comment, 
-    screenshot
+    screenshot,
+    company
   })
 
   return res.status(201).send();
 });
 
 routes.post("/trello-feedbacks", async (req, res) => {
-  const { idList, name, desc, pos, due, dueComplete, idMembers, idLabels, urlSource, fileSource, idCardSource, keepFromSource } = req.body
+  const { idList, name, desc, pos, due, dueComplete, idMembers, idLabels, urlSource, fileSource, idCardSource, keepFromSource, type, comment, screenshot, company } = req.body
 
   const trelloAdapter = new TrelloNodeCardAdapter();
+  const FeedbackRepository = new PrismaFeedbackRepository();
 
   const submitFeedbackTrelloUseCase = new SubmitFeedbackTrelloUseCase(
-    trelloAdapter
+    trelloAdapter,
+    FeedbackRepository
+    
   )
     
   await submitFeedbackTrelloUseCase.execute({
+    type, 
+    comment, 
+    screenshot,
+    company,
     name,
     desc,
     pos,

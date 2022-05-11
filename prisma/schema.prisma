@@ -8,11 +8,22 @@ datasource db {
 }
 
 model Feedback {
-  id String @id @default(uuid())
-
+  id         String  @id @default(uuid())
   type       String
   comment    String
   screenshot String?
 
+
   @@map("feedbacks")
+}
+
+model Ticket {
+  id         String  @id @default(uuid())
+  type       String
+  comment    String
+  screenshot String?
+  company    String
+
+
+  @@map("ticket")
 }
