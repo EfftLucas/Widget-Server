@@ -1,14 +1,20 @@
 import { SubmitFeedbackTrelloUseCase } from "./submit-feedback-trello-use-case";
 
 const trelloAdapter = jest.fn();
+const prismaAdapter = jest.fn();
 
 const submitFeedback = new SubmitFeedbackTrelloUseCase(
-  { sendCard: trelloAdapter }
+  { sendCard: trelloAdapter },
+  { create: prismaAdapter}
 );
 
 describe("Submit feedback on trello", () => {
   it('should be able to submit feedback', async () => {
     await expect(submitFeedback.execute({
+      type: "BUG",
+      comment: "Teste", 
+      screenshot: "teste",
+      company: "ibrep",
       name: "Aly",
       desc: "Teste",
       pos: "top",
@@ -28,6 +34,10 @@ describe("Submit feedback on trello", () => {
 
   it('should not be able to submit feedback without a idList', async () => {
     await expect(submitFeedback.execute({
+      type: "BUG",
+      comment: "Teste", 
+      screenshot: "teste",
+      company: "ibrep",
       name: "Aly",
       desc: "Teste",
       pos: "top",

@@ -14,7 +14,8 @@ describe('Submit feedback', () => {
     await expect(submitFeedback.execute({
       type: 'BUG',
       comment: 'Example comment',
-      screenshot: 'data:image/png;base64,test.jpg'
+      screenshot: 'data:image/png;base64,test.jpg',
+      company: "ibrep"
     })).resolves.not.toThrow();
 
     expect(createFeedbackSpy).toHaveBeenCalled
@@ -25,21 +26,24 @@ describe('Submit feedback', () => {
     await expect(submitFeedback.execute({
       type: '',
       comment: 'Example comment',
-      screenshot: 'data:image/png;base64,test.jpg'
+      screenshot: 'data:image/png;base64,test.jpg',
+      company: "ibrep"
     })).rejects.toThrow();
   })
   it('should be able to submit feedback without a comment', async () => {
     await expect(submitFeedback.execute({
       type: 'BUG',
       comment: '',
-      screenshot: 'data:image/png;base64,test.jpg'
+      screenshot: 'data:image/png;base64,test.jpg',
+      company: "ibrep"
     })).rejects.toThrow();
   })
   it('should be able to submit feedback with a invalid screenshot', async () => {
     await expect(submitFeedback.execute({
       type: 'BUG',
       comment: 'Example comment',
-      screenshot: '123'
+      screenshot: '123',
+      company: "ibrep"
     })).rejects.toThrow();
   })
 
